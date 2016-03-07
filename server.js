@@ -5,6 +5,8 @@ import route from 'koa-route'
 import fs from 'fs'
 
 import devMiddleware from 'koa-webpack-dev-middleware'
+import hotMiddleware from 'koa-webpack-hot-middleware'
+
 import convert from 'koa-convert'
 import webpack from 'webpack'
 import webpackConfig from './webpack.config'
@@ -14,6 +16,7 @@ const compiler = webpack(webpackConfig)
 
 app.use(morgan('short'))
 app.use(convert(devMiddleware(compiler, webpackConfig.devMiddleware)))
+app.use(convert(hotMiddleware(compiler, webpackConfig.hotMiddleware)))
 
 app.use(async function(ctx, next) {
   try {
