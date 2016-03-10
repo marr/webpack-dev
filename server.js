@@ -41,11 +41,4 @@ app.use(route.get('/secure', function(ctx) {
   ctx.throw(401)
 }));
 
-const port = process.env.PORT || 3000
-app.listen(port, (error) => {
-  if (error) {
-    console.error(error)
-  } else {
-    console.info("==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.", port, port)
-  }
-})
+export default app
