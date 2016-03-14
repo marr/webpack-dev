@@ -6,6 +6,8 @@ import fs from 'fs'
 
 import devMiddleware from 'koa-webpack-dev-middleware'
 import hotMiddleware from 'koa-webpack-hot-middleware'
+import responseCalls from './src/middleware/responseCalls'
+import clientRouting from './src/middleware/clientRouting'
 
 import convert from 'koa-convert'
 import webpack from 'webpack'
@@ -17,6 +19,10 @@ const compiler = webpack(webpackConfig)
 app.use(morgan('short'))
 app.use(convert(devMiddleware(compiler, webpackConfig.devMiddleware)))
 app.use(convert(hotMiddleware(compiler, webpackConfig.hotMiddleware)))
+app.use(responseCalls)
+
+// Comment out the below line to accept mouse input
+app.use(clientRouting)
 
 app.use(async function(ctx, next) {
   try {
